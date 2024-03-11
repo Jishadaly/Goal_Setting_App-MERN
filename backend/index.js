@@ -6,7 +6,9 @@ const port = process.env.PORT || 5000 ;
 
 connectDB()
 
-const router = require('./routes/goalRoutes')
+const goulRouter = require('./routes/goalRoutes')
+const userRouter = require('./routes/userRoutes')
+
 
 const app = express()
 
@@ -15,5 +17,7 @@ app.use(express.urlencoded({extended:false}))
 
 app.listen(port,()=> console.log( `sever start on port ${port}`))
 
-app.use('/api/goals',router)
+app.use('/api/goals',goulRouter)
+app.use('/api/users',userRouter)
+
 app.use(errorHandler);
