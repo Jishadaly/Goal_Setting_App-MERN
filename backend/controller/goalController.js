@@ -12,13 +12,14 @@ const setgoal = asyncHandler(async (req,res) => {
   res.status(200).json({message : 'Set goals'})
 })
 
-const updateGoal = (req,res) => {
+const updateGoal = asyncHandler(async(req,res) => {
   res.status(200).json({message : `update goal ${req.params.id}`})
-}
+})
 
-const deleteGoal = (req,res) => {
+const deleteGoal = asyncHandler(async (req,res) => {
   res.status(200).json({message : `delete goal ${req.params.id}`})
-}
+})
+
 
 module.exports = {
   getGoals,setgoal,updateGoal,deleteGoal
