@@ -8,6 +8,7 @@ connectDB()
 
 const goulRouter = require('./routes/goalRoutes')
 const userRouter = require('./routes/userRoutes')
+const  adminRouter = require('./routes/adminRoutes')
 
 
 const app = express()
@@ -19,5 +20,7 @@ app.listen(port,()=> console.log( `sever start on port ${port}`))
 
 app.use('/api/goals',goulRouter)
 app.use('/api/users',userRouter)
+app.use('/api/admin',adminRouter)
+
 
 app.use(errorHandler);

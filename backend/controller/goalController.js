@@ -9,7 +9,6 @@ const getGoals =asyncHandler(async (req,res) => {
   res.status(200).json(goals)
 })
 
-
 const setgoal = asyncHandler(async (req,res) => {
   // console.log(req.body.text);
   if (!req.body.text) {
@@ -76,4 +75,3 @@ const deleteGoal = asyncHandler(async (req,res) => {
 module.exports = {
   getGoals,setgoal,updateGoal,deleteGoal
 }
-

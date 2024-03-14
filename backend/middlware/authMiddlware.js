@@ -4,11 +4,13 @@ const User = require('../model/userModel')
 
 const authorization = asyncHandler(async (req,res,next)=>{
   let token
+  
   if(req.headers.authorization  && req.headers.authorization.startsWith('Bearer')){
     try {
+      
       //get token from header
       token = req.headers.authorization.split(' ')[1]
-
+      
       //verify token
       const decode = jwt.verify(token, process.env.JWT_SECRET)
 
@@ -17,6 +19,8 @@ const authorization = asyncHandler(async (req,res,next)=>{
       next()
 
     } catch (error) {
+      console.log("errrrrrrrrrrrrrrrrrrr");
+
       console.log(error);
       res.status(401)
       throw new Error('Not authorized')
@@ -25,8 +29,11 @@ const authorization = asyncHandler(async (req,res,next)=>{
 
   if(!token){
     res.status(401)
+    console.log("no token");
     throw new Error('Not authorized , no token')
+    
   }
+
 })
 
 module.exports = { authorization }
