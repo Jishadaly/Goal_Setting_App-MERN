@@ -30,7 +30,7 @@ const updateGoal = asyncHandler(async(req,res) => {
   }
 
   const user = await User.findById(req.user.id)
-  if (!user) {
+  if (!user) {  
     req.status(401)
     throw new Error('User not found')
   }

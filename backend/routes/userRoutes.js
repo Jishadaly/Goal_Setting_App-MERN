@@ -8,6 +8,7 @@ router.post('/',registerUser)
 router.post('/login', loginUser)
 router.get('/me', authorization,getMe)
 router.post('/profile/upload',authorization,uploadProfile )
+router.post('userBlock',userBlock)
 
 
 

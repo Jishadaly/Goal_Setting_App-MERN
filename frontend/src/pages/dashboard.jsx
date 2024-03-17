@@ -7,12 +7,12 @@ function Dashboard() {
   const {user} = useSelector((state)=> state.auth)
   console.log(user);
 
-  useEffect(()=>{
-    
-    if (!user) {
-      navigate('/login')
-    }
-  },[user , navigate])
+    useEffect(()=>{
+      
+      if (!user) {
+        navigate('/login')
+      }
+    },[user , navigate])
   
   return (
     <div>

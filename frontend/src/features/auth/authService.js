@@ -11,6 +11,8 @@ const API_URL = '/api/users/'
   return response.data
 }
 
+
+
 //login user
 const login =async (userData) =>{
   const response = await axios.post(API_URL + 'login',userData)
@@ -20,6 +22,8 @@ const login =async (userData) =>{
   }
   return response.data
 }
+
+
 
 const profileUpload = async (token,imgUrl) =>{
  const config = {
@@ -45,7 +49,7 @@ const profileUpload = async (token,imgUrl) =>{
 
 
 const logout = ()=> {
-  localStorage.removeItem('user')
+  localStorage.removeItem('user');
 }
 
 

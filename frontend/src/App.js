@@ -1,5 +1,6 @@
 import {BrowserRouter as Router , Routes, Route } from 'react-router-dom'
 import Dashboard from './pages/dashboard';
+import AdminLogin from './pages/admin/login';
 import Login from './pages/login';
 import Register from './pages/register';
 import Header from './components/Header';
@@ -12,38 +13,41 @@ import Profile from './pages/Profile';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import Userlist from './pages/admin/userList';
 function App() {
-  return (
-    <>
+    return (
+      <>
 
-      <Router>
-    <div className="container">
-        <Routes>
-          
-          <Route path='/admin/*' element={<AdminHeader/>}/>
-          <Route path='*' element={<Header/>}/>
-        </Routes>
-
-        <Routes>
-
-        <Route path='/' element={< Dashboard />} />
-        <Route path='/login' element={< Login />} />
-        <Route path='/register' element={< Register />} />
-        <Route path='/profile' element={< Profile />} />
-
-        </Routes>
-        
-        <Routes>
-        
-              {/* Add admin route */}
+        <Router>
+      <div className="container">
+          <Routes>
             
-             <Route path='/admin' element={<AdminDashboard />}/>
-             <Route path='/admin/userList' element={<Userlist/>}/>
-             
+            <Route path='/admin/*' element={<AdminHeader/>}/>
+            <Route path='*' element={<Header/>}/>
+          </Routes>
 
-        </Routes>
-    </div>
-      </Router>
-      <ToastContainer/>
+          <Routes>
+
+          <Route path='/' element={< Dashboard />} />
+          <Route path='/login' element={< Login />} />
+          <Route path='/register' element={< Register />} />
+          <Route path='/profile' element={< Profile />} />
+
+          </Routes>
+          
+          <Routes>
+          
+                {/* Add admin route */}
+
+
+                <Route path='/admin/login' element={<AdminLogin/>} />
+              <Route path='/admin' element={<AdminDashboard />}/>
+              <Route path='/admin/userList' element={<Userlist/>}/>
+
+              
+
+          </Routes>
+      </div>
+        </Router>
+        <ToastContainer/>
     </>
   );
 }

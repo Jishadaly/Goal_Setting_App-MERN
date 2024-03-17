@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,13 +8,14 @@ import { ProfileUpdate } from '../features/auth/authSlice';
 
 
 function Profile() {
-  const {user} = useSelector((state)=> state.auth)
+  const {user} = useSelector((state)=> state.auth);
   const [image , setImage] = useState("");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
 
   const uploadImage =(e)=>{
     e.preventDefault()
-
+    
     if (!image) {
       toast.error("please upload a file")
 
@@ -44,7 +46,7 @@ function Profile() {
             {
               <Link to={'/'}></Link>
             }
-            <li className="breadcrumb-item"> <Link to='/'> Home </Link></li>
+            <li className="breadcrumb-item"> <Link to='/'>Home</Link></li>
           
             <li className="breadcrumb-item active" aria-current="page">User Profile</li>
           </ol>
@@ -65,9 +67,11 @@ function Profile() {
                 
                   <div className="mt-3">
                     <h4>{user.name}</h4>
+
                     {/* <p className="text-secondary mb-1">Full Stack Developer</p>
                     <p className="text-muted font-size-sm">Bay Area, San Francisco, CA</p> */}
                     {/* <button className="btn btn-primary">Follow</button> */}
+
                     <div className="upload-button">
               <div class="custom-file-upload">
                 <label for="profile" class="custom-button">

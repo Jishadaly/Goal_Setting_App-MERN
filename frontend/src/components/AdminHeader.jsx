@@ -1,8 +1,20 @@
 import React from 'react'
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { adminLogout ,reset} from '../features/adminAuth/adminAuthSlice'
 
 
 const AdminHeader = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch() 
+
+  const onLogout = ()=> {
+    dispatch(adminLogout())
+    dispatch(reset())
+    navigate('/admin/login')
+  }
+
   return (
     <div>
       <header className='header'>
@@ -27,7 +39,7 @@ const AdminHeader = () => {
             <li>
 
             <button className='btn' 
-            // onClick={onLogout}
+            onClick={onLogout}
             >
             <FaSignOutAlt /> logout
             </button>
@@ -35,15 +47,10 @@ const AdminHeader = () => {
         </li></ul>
 
             {/* // ) : ( */}
-            <>
-              
-
-             
+            <>   
             </>
             {/* )} */}
           
-
-
         </ul>
       </header>
     </div>
