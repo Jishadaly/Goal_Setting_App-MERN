@@ -1,38 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import {  AddNewUser } from '../../features/adminAuth/adminAuthSlice'
 import { FaUser } from 'react-icons/fa'
-import { useSelector , useDispatch } from 'react-redux'
-import { useNavigate   } from 'react-router-dom'
 import { toast } from 'react' 
-import { register , reset } from '../features/auth/authSlice'
-import Spinner from '../components/Spinner'
- 
-function Register() {
+
+
+function AddUser() {
   const [formData, setFormData] = useState({
-    name:'',
-    email:'',
-    password:'',
-    password2:'',
+    name:'' ,
+    email:'' ,
+    password:'' ,
+    password2:'' ,
+
   })
 
-  
   const { name , email , password , password2} = formData
-
-  const navigate = useNavigate()
+  
   const dispatch = useDispatch()
-
-  const { user , isLoading , isError , isSuccess  , message } = useSelector (
-    (state) => state.auth)
-
-    useEffect(()=>{
-
-      if (isError) {
-        toast.error(message,"error")
-      }
-      if(isSuccess || user){
-        navigate('/')
-      }
-      dispatch(reset())
-    },[user , isError , isSuccess , message , navigate , dispatch])
+  const navigate = useNavigate()
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -41,32 +27,32 @@ function Register() {
     }))
   }
 
-  const onSubmit = (e) => {
+  const onSubmit =(e) => {
     e.preventDefault()
     if (password !== password2) {
-      toast.error('password do not match ')
+      toast.error('password do not match')
     }else{
       const userData = {
         name,
         email,
         password
       }
-      dispatch(register(userData))
-      navigate('/')
+      
+      dispatch(AddNewUser(userData));
+      alert(" added ");
+      navigate('/admin');
     }
   }
 
-  if (isLoading) {
-    return <Spinner/>
-  }
+
 
   return (
     <>
       <section>
         <h1>
-          <FaUser /> register
+          <FaUser /> Add User
         </h1>
-        <p > create an account </p>
+        <p > create an User Account </p>
       </section>
 
       <section className="form">
@@ -133,4 +119,4 @@ function Register() {
   )
 }
 
-export default Register
+export default AddUser

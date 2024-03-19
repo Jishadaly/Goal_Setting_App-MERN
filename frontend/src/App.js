@@ -4,7 +4,7 @@ import AdminLogin from './pages/admin/login';
 import Login from './pages/login';
 import Register from './pages/register';
 import Header from './components/Header';
-import AdminHeader, { A} from './components/AdminHeader'
+import AdminHeader from './components/AdminHeader'
 	
 import { ToastContainer } from "react-toastify";
 
@@ -12,6 +12,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import Userlist from './pages/admin/userList';
+import AddUser from './components/admin/AddUser';
+
+
 function App() {
     return (
       <>
@@ -41,6 +44,7 @@ function App() {
                 <Route path='/admin/login' element={<AdminLogin/>} />
               <Route path='/admin' element={<AdminDashboard />}/>
               <Route path='/admin/userList' element={<Userlist/>}/>
+              <Route path='/admin/adduser' element={<AddUser/>} />
 
               
 

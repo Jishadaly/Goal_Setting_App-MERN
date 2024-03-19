@@ -15,7 +15,7 @@ const initialState = {
 
 
 //register user
-export const register = createAsyncThunk('auth/login',async (user,thunkAPI)=>{
+export const register = createAsyncThunk('auth/register',async (user,thunkAPI)=>{
   try {
     return await authService.register(user)
   } catch (error) {
@@ -27,10 +27,13 @@ export const register = createAsyncThunk('auth/login',async (user,thunkAPI)=>{
 })
 
 //login user
-export const login = createAsyncThunk('auth/register',async (user,thunkAPI)=>{
+export const login = createAsyncThunk('auth/login',async (user,thunkAPI)=>{
   try {
     return await authService.login(user)
   } catch (error) {
+    if (error.response && error.response.state===403) {
+      return thunkAPI.rejectWithValue({isError : true ,message : "user is blocked"})
+    }
     const message = (error.response && error.response.data && error.response.data.message) ||
     error.message ||
     error.toString()
@@ -98,7 +101,7 @@ export const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
-        state.message = action.payload
+        state.message =  action.payload
         state.user = null
       })
 

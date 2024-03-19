@@ -41,15 +41,24 @@ function Login() {
     }))
   }
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-
-    const userData = {
-      email,password
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const userData = { email, password };
+    
+    try {
+      await dispatch(login(userData)).unwrap();
+      navigate('/');
+    } catch (error) {
+      if (error && error.message) {
+        console.log("erororr///",error.message);
+        toast.error(error.message);
+      } else {
+        // If error object or 'message' property is missing, show a generic error message
+        toast.error('An error occurred. Please try again later.');
+      }
     }
-    dispatch(login(userData))
-    navigate('/')
-  }
+  };
+  
 
   if (isLoading) {
     return <Spinner/>

@@ -10,10 +10,6 @@ function AdminDashboard() {
   
   const {admin} = useSelector((state)=> state.adminAuth)
   const navigate = useNavigate()
-  
- 
-  
-    
 
   useEffect(()=>{
     
@@ -34,11 +30,13 @@ function AdminDashboard() {
               <h2 className="card-title text-center mb-4">Welcome, {admin && admin.name}</h2>
               {/* <h3 className="card-title">Admin Details</h3>
               <p className="card-text">Name: { admin && admin.name}</p>*/}
-               <p className="card-text"> { admin&& admin.email}</p> 
+               <p className="card-text"> { admin&& admin.email}</p>
+               <div className="text-center">
+            <button className="btn" onClick={()=> navigate('/admin/adduser')}>Add User</button>
+          </div>
             </div>
             {/* <div className="card-footer text-center">
               <button className="btn btn-primary me-2" onClick={handleUserListClick}>User List</button>
-              
             </div> */}
           </div>
         </div>

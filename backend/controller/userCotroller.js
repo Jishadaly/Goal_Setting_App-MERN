@@ -52,6 +52,11 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const user  = await User.findOne({email: email})
   if (user && await ( bcrypt.compare(password , user.password) )) {
+
+    if (user.isBlocked === true) {
+      res.status(403).json({ message: "User is blocked." });
+    }
+
     res.json({
       id: user._id,
       name : user.name,
@@ -64,7 +69,6 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('invalid credentials')
   }
-
 })
 
 
