@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {  AddNewUser } from '../../features/adminAuth/adminAuthSlice'
 import { FaUser } from 'react-icons/fa'
-import { toast } from 'react' 
+import { toast } from 'react-toastify' 
 
 
 function AddUser() {
@@ -29,6 +29,24 @@ function AddUser() {
 
   const onSubmit =(e) => {
     e.preventDefault()
+
+    
+    // Form validation
+    if (!name || !email || !password || !password2) {
+      toast.error('All fields are required');
+      return;
+  }
+
+  if (!isValidEmail(email)) {
+      toast.error('Please enter a valid email address');
+      return;
+  }
+
+  if (password.length < 6) {
+      toast.error('Password must be at least 6 characters long');
+      return;
+  }
+
     if (password !== password2) {
       toast.error('password do not match')
     }else{
@@ -39,10 +57,17 @@ function AddUser() {
       }
       
       dispatch(AddNewUser(userData));
-      alert(" added ");
+      
       navigate('/admin');
+      toast.success('New user added sucessfully');
     }
   }
+
+  const isValidEmail = (email) => {
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
 
 

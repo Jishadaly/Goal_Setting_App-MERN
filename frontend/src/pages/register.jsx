@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FaUser } from 'react-icons/fa'
 import { useSelector , useDispatch } from 'react-redux'
 import { useNavigate   } from 'react-router-dom'
-import { toast } from 'react' 
+import { toast } from 'react-toastify' 
 import { register , reset } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
  
@@ -25,7 +25,7 @@ function Register() {
 
     useEffect(()=>{
 
-      if (isError) {
+      if (isError && message) {
         toast.error(message,"error")
       }
       if(isSuccess || user){
@@ -41,8 +41,25 @@ function Register() {
     }))
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
+     // Form validation
+        if (!name || !email || !password || !password2) {
+            toast.error('All fields are required');
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            toast.error('Please enter a valid email address');
+            return;
+        }
+
+        if (password.length < 6) {
+            toast.error('Password must be at least 6 characters long');
+            return;
+        }
+
+        
     if (password !== password2) {
       toast.error('password do not match ')
     }else{
@@ -51,10 +68,22 @@ function Register() {
         email,
         password
       }
-      dispatch(register(userData))
-      navigate('/')
+      try {
+        dispatch(register(userData))
+        navigate('/')
+        toast.success('registration  successful!');
+      } catch (error) {
+        toast.error(error.message);
+
+      }
+
     }
   }
+  const isValidEmail = (email) => {
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+};
 
   if (isLoading) {
     return <Spinner/>

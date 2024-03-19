@@ -11,7 +11,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/admin/AdminDashboard';
-import Userlist from './pages/admin/userList';
+import Userlist from './components/admin/UserList';
 import AddUser from './components/admin/AddUser';
 
 

@@ -3,7 +3,7 @@ import { FaSignInAlt } from 'react-icons/fa'
 
 import { useSelector , useDispatch } from 'react-redux'
 import { useNavigate   } from 'react-router-dom'
-import { toast } from 'react' 
+import { toast } from 'react-toastify' 
 import { login , reset } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
 
@@ -23,16 +23,16 @@ function Login() {
   const { user , isLoading , isError , isSuccess  , message } = useSelector (
     (state) => state.auth)
 
-    useEffect(()=>{
-
-      if (isError) {
-        toast.error(message,"kjnk")
+    useEffect( () => {
+      if (isError && message) {
+          toast.error(message, "kjnk");
       }
-      if(isSuccess || user){
-        navigate('/')
+      if (isSuccess || user) {
+          navigate('/');
       }
-      dispatch(reset())
-    },[user , isError , isSuccess , message , navigate , dispatch])
+      dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+  
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -43,21 +43,42 @@ function Login() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const userData = { email, password };
-    
-    try {
-      await dispatch(login(userData)).unwrap();
-      navigate('/');
-    } catch (error) {
-      if (error && error.message) {
-        console.log("erororr///",error.message);
-        toast.error(error.message);
-      } else {
-        // If error object or 'message' property is missing, show a generic error message
-        toast.error('An error occurred. Please try again later.');
-      }
-    }
+    if (!email || !password) {
+      // Display error message if any field is empty
+      toast.error('Please fill in all fields');
+      return;
+  }
+
+  const isValidEmail = (email) => {
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
+
+  if (!isValidEmail(email)) {
+    toast.error('Please enter a valid email address');
+    return;
+}
+
+
+  
+  
+  console.log('Form submitted:', formData);
+    const userData = { email, password };
+
+    try {
+        await dispatch(login(userData)).unwrap();
+        navigate('/');
+         toast.success('Login successful!');
+
+    } catch (error) {
+        console.error("Error:", error);
+        const errorMessage = error?.message;
+        toast.error(errorMessage);
+    }
+};
+
+
   
 
   if (isLoading) {
